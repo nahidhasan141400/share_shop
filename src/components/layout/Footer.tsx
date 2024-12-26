@@ -8,17 +8,25 @@ const Footer: React.FC = () => {
         <div className="mt-4">
           <ul className="flex justify-center space-x-6">
             <li>
-              <a href="#" className="hover:underline">
+              <a
+                href="https://nahidhasan141400.github.io/nahidhasan141400/"
+                target="_blank"
+                className="hover:underline"
+              >
                 Nahid Hasan
               </a>
             </li>
             <li>
-              <a href="#" className="hover:underline">
+              <a
+                href="https://flowcv.com/resume/0q6j93540j"
+                target="_blank"
+                className="hover:underline"
+              >
                 Updated CV
               </a>
             </li>
             <li>
-              <a href="#" className="hover:underline">
+              <a href="tel:01741013363" className="hover:underline">
                 Contact
               </a>
             </li>

@@ -37,7 +37,6 @@ const FavList = () => {
             <ProductCard
               discount={product.discountPercentage ? reducedAmount : false}
               onAddToCart={() => handleAddToCart(product)} // Pass product to add to cart
-              onQuickView={() => console.log("Quick View:", product)}
               price={originalPrice}
               originalPrice={discountPrice}
               loading={false}
