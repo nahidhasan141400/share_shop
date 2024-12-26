@@ -1,6 +1,11 @@
-import { Logo } from "@/assets/icons";
+import { Favorite, Logo, ShoppingCart } from "@/assets/icons";
+import { RootState } from "@/store";
+import { useSelector } from "react-redux";
 
 const Header = () => {
+  const product_length = useSelector(
+    (state: RootState) => state.product_cart.product.length
+  );
   return (
     <header className="text-blue-700 p-4">
       <div className="container mx-auto max-w-7xl flex justify-between items-center">
@@ -11,14 +16,28 @@ const Header = () => {
         <nav>
           <ul className="flex space-x-6">
             <li>
-              <a href="/about" className="hover:underline">
+              <button className="flex items-center justify-center gap-1 bg-blue-100 px-4 py-2 rounded-lg">
+                <span className="text-2xl ">
+                  <ShoppingCart />
+                </span>
                 Cart
-              </a>
+                {product_length > 0 && (
+                  <span className="bg-red-500 rounded-full text-white size-6 text-xs p-1">
+                    {product_length}
+                  </span>
+                )}
+              </button>
             </li>
             <li>
-              <a href="/contact" className="hover:underline">
+              <button className="flex items-center justify-center gap-1 bg-blue-100 px-4 py-2 rounded-lg">
+                <span className="text-2xl text-red-500">
+                  <Favorite />
+                </span>
                 Favorite
-              </a>
+                <span className="bg-red-500 rounded-full text-white size-6 text-xs p-1">
+                  30
+                </span>
+              </button>
             </li>
           </ul>
         </nav>

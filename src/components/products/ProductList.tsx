@@ -49,9 +49,9 @@ const ProductList = () => {
   };
 
   return (
-    <div>
-      <h1 className="text-xl font-semibold mb-4">
-        Product List {isLoading && "loading"}
+    <div className="w-full pb-5 pt-5">
+      <h1 className="text-xl font-semibold mb-4 text-center">
+        Select Your Product
       </h1>
 
       {/* Render your product list here */}
