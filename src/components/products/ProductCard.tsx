@@ -15,13 +15,13 @@ import { AddQuantity, deleteProductFromCart } from "@/store/slices/modalSlice";
 import useFindProductByIdFromFav from "@/hooks/GetProductByIdFromFav";
 import { ProductI } from "@/interfaces/product/product";
 import { AddToFav, deleteProductFromFav } from "@/store/slices/favSlice";
+import { show_Quick } from "@/store/slices/QuickView";
 
 interface ProductCardProps {
   price: number;
   originalPrice?: number;
   discount: number | boolean | string;
   onAddToCart: () => void;
-  onQuickView: () => void;
   isHovered: boolean;
   loading: boolean;
   product: ProductI;
@@ -32,7 +32,6 @@ const ProductCard: React.FC<ProductCardProps> = ({
   originalPrice,
   discount,
   onAddToCart,
-  onQuickView,
   isHovered,
   loading,
   product,
@@ -64,6 +63,11 @@ const ProductCard: React.FC<ProductCardProps> = ({
   const handleRemoveFav = () => {
     if (product) {
       dispatch(deleteProductFromFav(product?.id));
+    }
+  };
+  const QuickView = () => {
+    if (product) {
+      dispatch(show_Quick(product));
     }
   };
 
@@ -155,7 +159,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
             <button
               className="flex justify-center items-center gap-1 mt-3 bg-white/5  hover:bg-white/40 ring-2 backdrop-blur-md ring-white/50 text-white w-full  py-1 rounded shadow"
-              onClick={onQuickView}
+              onClick={QuickView}
             >
               <span className="text-xl">
                 <Eye />

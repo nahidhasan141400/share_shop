@@ -3,6 +3,7 @@ import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage"; // Default: localStorage for web
 import productReducer from "@/store/slices/modalSlice";
 import FavSlice from "@/store/slices/favSlice";
+import QuickSlice from "@/store/slices/QuickView";
 import api from "./api/api";
 
 // Persist configuration for the product slice
@@ -18,6 +19,7 @@ const store = configureStore({
   reducer: {
     product_cart: persistedProductReducer,
     product_fav: persistedProductFavReducer,
+    quick_view: QuickSlice,
     [api.reducerPath]: api.reducer,
   },
   middleware: (getDefaultMiddleware) =>

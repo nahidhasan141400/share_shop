@@ -31,6 +31,8 @@ const ProductList = () => {
       "thumbnail",
       "price",
       "discountPercentage",
+      "rating",
+      "description",
     ],
   });
 
@@ -68,8 +70,7 @@ const ProductList = () => {
             >
               <ProductCard
                 discount={product.discountPercentage ? reducedAmount : false}
-                onAddToCart={() => handleAddToCart(product)} // Pass product to add to cart
-                onQuickView={() => console.log("Quick View:", product)}
+                onAddToCart={() => handleAddToCart(product)}
                 price={originalPrice}
                 originalPrice={discountPrice}
                 loading={isFetching}
