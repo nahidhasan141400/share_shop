@@ -2,6 +2,7 @@ import {
   AddToCart,
   Badge,
   Eye,
+  Favorite,
   HeartOutline,
   OutlineAdd,
   TrashCanOutline,
@@ -11,10 +12,11 @@ import ImageWithLoading from "../share/ImageWithLoading";
 import useFindProductById from "@/hooks/GetProductByIdFromCart";
 import { useDispatch } from "react-redux";
 import { AddQuantity, deleteProductFromCart } from "@/store/slices/modalSlice";
+import useFindProductByIdFromFav from "@/hooks/GetProductByIdFromFav";
+import { ProductI } from "@/interfaces/product/product";
+import { AddToFav, deleteProductFromFav } from "@/store/slices/favSlice";
 
 interface ProductCardProps {
-  image: string;
-  title: string;
   price: number;
   brand: string;
   originalPrice?: number;
@@ -23,37 +25,46 @@ interface ProductCardProps {
   onQuickView: () => void;
   isHovered: boolean;
   loading: boolean;
-  id: string;
+  product: ProductI;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({
-  image,
-  title,
   price,
   originalPrice,
   discount,
-  brand,
   onAddToCart,
   onQuickView,
   isHovered,
   loading,
-  id,
+  product,
 }) => {
   const dispatch = useDispatch();
-  const productInCart = useFindProductById(id);
+  const productInCart = useFindProductById(product?.id);
+  const productInFav = useFindProductByIdFromFav(product?.id);
 
   const handleDeleteFromCart = () => {
-    dispatch(deleteProductFromCart(id));
+    dispatch(deleteProductFromCart(product?.id));
   };
 
   const handleAddQuantity = () => {
     if (productInCart) {
       dispatch(
         AddQuantity({
-          id: id,
+          id: product?.id,
           quantity: 1,
         })
       );
+    }
+  };
+
+  const handleAddFav = () => {
+    if (product) {
+      dispatch(AddToFav(product));
+    }
+  };
+  const handleRemoveFav = () => {
+    if (product) {
+      dispatch(deleteProductFromFav(product?.id));
     }
   };
 
@@ -84,7 +95,11 @@ const ProductCard: React.FC<ProductCardProps> = ({
       {/* Image */}
       <div className="w-full h-52 overflow-hidden rounded-md relative">
         {/* <img className="w-full h-52 object-cover rounded-md transition-transform duration-300 group-hover:scale-105 bg-white" /> */}
-        <ImageWithLoading src={image} alt={title} callback={() => {}} />
+        <ImageWithLoading
+          src={product?.thumbnail}
+          alt={product?.title}
+          callback={() => {}}
+        />
         {/* Hover Actions */}
         <div
           className={`absolute inset-0 bg-black/50 text-white gap-4 transition-opacity ${
@@ -93,9 +108,21 @@ const ProductCard: React.FC<ProductCardProps> = ({
         >
           {/* save to favorite */}
           <div className="absolute top-0 right-0 p-3 inline-block z-30">
-            <span className="text-2xl cursor-pointer relative hover:scale-110 ">
-              <HeartOutline />
-            </span>
+            {productInFav ? (
+              <span
+                onClick={handleRemoveFav}
+                className="text-2xl text-red-600 cursor-pointer relative hover:scale-110 "
+              >
+                <Favorite />
+              </span>
+            ) : (
+              <span
+                onClick={handleAddFav}
+                className="text-2xl cursor-pointer relative hover:scale-110 "
+              >
+                <HeartOutline />
+              </span>
+            )}
           </div>
           {/* button controller */}
           <div className="w-full absolute bottom-0 mb-3 px-3">
@@ -142,9 +169,9 @@ const ProductCard: React.FC<ProductCardProps> = ({
 
       {/* Product Info */}
       <div className="p-3 pt-3">
-        <h2 className="text-gray-800 text-sm truncate">{brand || "brand"}</h2>
+        <h2 className="text-gray-800 text-sm truncate">{product?.brand}</h2>
         <h3 className="text-gray-800 font-medium  overflow-ellipsis line-clamp-2">
-          {title}
+          {product.title}
         </h3>
         <div className="mt-2 flex items-center">
           <span className="text-blue-600 text-lg font-semibold">৳ {price}</span>

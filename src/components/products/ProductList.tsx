@@ -67,17 +67,15 @@ const ProductList = () => {
               onMouseLeave={() => setHoveredCardIndex(null)}
             >
               <ProductCard
-                id={product.id}
                 brand={product.brand}
                 discount={product.discountPercentage ? reducedAmount : false}
-                image={product.thumbnail}
                 onAddToCart={() => handleAddToCart(product)} // Pass product to add to cart
                 onQuickView={() => console.log("Quick View:", product)}
                 price={originalPrice}
-                title={product.title}
                 originalPrice={discountPrice}
                 loading={isFetching}
                 isHovered={hoveredCardIndex === index}
+                product={product}
               />
             </div>
           );
