@@ -1,10 +1,10 @@
-import { ProductResponseI } from "@/interfaces/product/product";
+import { ProductI, ProductResponseI } from "@/interfaces/product/product";
 import api from "../api";
 
 interface GetAllProductParams {
   limit: number;
   skip: number;
-  select: string;
+  select: (keyof ProductI)[];
 }
 
 export const ProductApi = api.injectEndpoints({

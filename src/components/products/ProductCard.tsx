@@ -7,6 +7,7 @@ import {
   TrashCanOutline,
 } from "@/assets/icons";
 import React from "react";
+import ImageWithLoading from "../share/ImageWithLoading";
 
 interface ProductCardProps {
   image: string;
@@ -14,10 +15,11 @@ interface ProductCardProps {
   price: number;
   brand: string;
   originalPrice?: number;
-  discount: number;
+  discount: number | boolean | string;
   onAddToCart: () => void;
   onQuickView: () => void;
   isHovered: boolean;
+  loading: boolean;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({
@@ -30,25 +32,29 @@ const ProductCard: React.FC<ProductCardProps> = ({
   onAddToCart,
   onQuickView,
   isHovered,
+  loading,
 }) => {
-  return (
+  return loading ? (
+    <div className="relative group max-w-[240px] h-72 rounded-lg hover:shadow-md bg-gray-50 p-1 overflow-hidden">
+      loading
+    </div>
+  ) : (
     <div className="relative group max-w-[240px] rounded-lg hover:shadow-md bg-gray-50 p-1 overflow-hidden">
       {/* Discount Badge */}
-      <div className="absolute top-2 -left-2 text-white text-xs px-2 py-1 z-10 rounded">
-        <p className="absolute top-0 left-3">
-          {" "}
-          - <span className="text-xl">৳</span> {discount}
-        </p>
-        <Badge />
-      </div>
+      {discount && (
+        <div className="absolute top-2 -left-2 text-white text-xs px-2 py-1 z-10 rounded">
+          <p className="absolute top-0 left-3">
+            {" "}
+            - <span className="text-xl">৳</span> {discount}
+          </p>
+          <Badge />
+        </div>
+      )}
 
       {/* Image */}
       <div className="w-full h-52 overflow-hidden rounded-md relative">
-        <img
-          src={image}
-          alt={title}
-          className="w-full h-52 object-cover rounded-md transition-transform duration-300 group-hover:scale-105"
-        />
+        {/* <img className="w-full h-52 object-cover rounded-md transition-transform duration-300 group-hover:scale-105 bg-white" /> */}
+        <ImageWithLoading src={image} alt={title} callback={() => {}} />
         {/* Hover Actions */}
         <div
           className={`absolute inset-0 bg-black/50 text-white gap-4 transition-opacity ${
