@@ -1,10 +1,18 @@
-import { AddToCart, Badge, Eye } from "@/assets/icons";
+import {
+  AddToCart,
+  Badge,
+  Eye,
+  HeartOutline,
+  OutlineAdd,
+  TrashCanOutline,
+} from "@/assets/icons";
 import React from "react";
 
 interface ProductCardProps {
   image: string;
   title: string;
   price: number;
+  brand: string;
   originalPrice?: number;
   discount: number;
   onAddToCart: () => void;
@@ -18,6 +26,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
   price,
   originalPrice,
   discount,
+  brand,
   onAddToCart,
   onQuickView,
   isHovered,
@@ -46,10 +55,25 @@ const ProductCard: React.FC<ProductCardProps> = ({
             isHovered ? "opacity-100" : "opacity-0"
           }`}
         >
+          {/* save to favorite */}
+          <div className="absolute top-0 right-0 p-3 inline-block z-30">
+            <span className="text-2xl cursor-pointer relative hover:scale-110 ">
+              <HeartOutline />
+            </span>
+          </div>
           {/* button controller */}
           <div className="w-full absolute bottom-0 mb-3 px-3">
+            <div className="flex justify-between items-center gap-1  bg-green-500 rounded-md backdrop-blur-md text-white w-full  px-3 py-1">
+              <span className="text-xl">
+                <TrashCanOutline />
+              </span>
+              1 Added in Cart
+              <span className="text-xl">
+                <OutlineAdd />
+              </span>
+            </div>
             <button
-              className="flex justify-center items-center gap-1 bg-white/5  hover:bg-white/40 ring-2 backdrop-blur-md ring-white/50 text-white w-full  py-1 rounded shadow"
+              className=" mt-2 flex justify-center items-center gap-1 bg-white/5  hover:bg-white/40 ring-2 backdrop-blur-md ring-white/50 text-white w-full  py-1 rounded shadow"
               onClick={onAddToCart}
             >
               <span className="text-xl">
@@ -71,8 +95,11 @@ const ProductCard: React.FC<ProductCardProps> = ({
       </div>
 
       {/* Product Info */}
-      <div className="p-4">
-        <h3 className="text-gray-800 text-sm font-medium truncate">{title}</h3>
+      <div className="p-3 pt-3">
+        <h2 className="text-gray-800 text-sm truncate">{brand || "brand"}</h2>
+        <h3 className="text-gray-800 font-medium  overflow-ellipsis line-clamp-2">
+          {title}
+        </h3>
         <div className="mt-2 flex items-center">
           <span className="text-blue-600 text-lg font-semibold">৳ {price}</span>
           {originalPrice && (

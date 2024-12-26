@@ -11,7 +11,8 @@ function App() {
     {
       image:
         "https://mockuptree.com/wp-content/uploads/edd/2023/09/free-t-shirt-mockup-template.jpg",
-      title: "Fabrilife Mens Premium Designer Edition T Shirt",
+      title:
+        "Fabrilife Mens Premium Designer Edition T Shirt  Edition T Shirt  Edition T Shirt",
       price: 2500,
       originalPrice: 2800,
       discount: 200,
