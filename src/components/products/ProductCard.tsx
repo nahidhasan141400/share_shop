@@ -8,6 +8,9 @@ import {
 } from "@/assets/icons";
 import React from "react";
 import ImageWithLoading from "../share/ImageWithLoading";
+import useFindProductById from "@/hooks/GetProductByIdFromCart";
+import { useDispatch } from "react-redux";
+import { AddQuantity, deleteProductFromCart } from "@/store/slices/modalSlice";
 
 interface ProductCardProps {
   image: string;
@@ -20,6 +23,7 @@ interface ProductCardProps {
   onQuickView: () => void;
   isHovered: boolean;
   loading: boolean;
+  id: string;
 }
 
 const ProductCard: React.FC<ProductCardProps> = ({
@@ -33,10 +37,36 @@ const ProductCard: React.FC<ProductCardProps> = ({
   onQuickView,
   isHovered,
   loading,
+  id,
 }) => {
+  const dispatch = useDispatch();
+  const productInCart = useFindProductById(id);
+
+  const handleDeleteFromCart = () => {
+    dispatch(deleteProductFromCart(id));
+  };
+
+  const handleAddQuantity = () => {
+    if (productInCart) {
+      dispatch(
+        AddQuantity({
+          id: id,
+          quantity: 1,
+        })
+      );
+    }
+  };
+
   return loading ? (
-    <div className="relative group max-w-[240px] h-72 rounded-lg hover:shadow-md bg-gray-50 p-1 overflow-hidden">
-      loading
+    <div className="relative group max-w-[240px] h-72 rounded-lg bg-gray-100 overflow-hidden animate-pulse">
+      <div className="absolute inset-0 bg-gradient-to-r from-gray-100 via-gray-200 to-gray-100 opacity-50"></div>
+      {/* Optional: Add inner elements for more realistic skeleton */}
+      <div className="absolute top-4 left-4 w-16 h-4 bg-gray-300 rounded"></div>{" "}
+      {/* Example: Title */}
+      <div className="absolute top-10 left-4 w-24 h-2 bg-gray-300 rounded"></div>{" "}
+      {/* Example: Subtitle */}
+      <div className="absolute bottom-4 left-4 right-4 h-16 bg-gray-300 rounded"></div>{" "}
+      {/* Example: Image placeholder */}
     </div>
   ) : (
     <div className="relative group max-w-[240px] rounded-lg hover:shadow-md bg-gray-50 p-1 overflow-hidden">
@@ -69,24 +99,34 @@ const ProductCard: React.FC<ProductCardProps> = ({
           </div>
           {/* button controller */}
           <div className="w-full absolute bottom-0 mb-3 px-3">
-            <div className="flex justify-between items-center gap-1  bg-green-500 rounded-md backdrop-blur-md text-white w-full  px-3 py-1">
-              <span className="text-xl">
-                <TrashCanOutline />
-              </span>
-              1 Added in Cart
-              <span className="text-xl">
-                <OutlineAdd />
-              </span>
-            </div>
-            <button
-              className=" mt-2 flex justify-center items-center gap-1 bg-white/5  hover:bg-white/40 ring-2 backdrop-blur-md ring-white/50 text-white w-full  py-1 rounded shadow"
-              onClick={onAddToCart}
-            >
-              <span className="text-xl">
-                <AddToCart />
-              </span>
-              Add to Cart
-            </button>
+            {productInCart ? (
+              <div className="flex justify-between items-center gap-1  bg-green-500 rounded-md backdrop-blur-md text-white w-full  px-3 py-1">
+                <span
+                  onClick={handleDeleteFromCart}
+                  className="text-xl cursor-pointer"
+                >
+                  <TrashCanOutline />
+                </span>
+                {productInCart.quantity} Added in Cart
+                <span
+                  onClick={handleAddQuantity}
+                  className="text-xl cursor-pointer"
+                >
+                  <OutlineAdd />
+                </span>
+              </div>
+            ) : (
+              <button
+                className=" flex justify-center items-center gap-1 bg-white/5  hover:bg-white/40 ring-2 backdrop-blur-md ring-white/50 text-white w-full  py-1 rounded shadow"
+                onClick={onAddToCart}
+              >
+                <span className="text-xl">
+                  <AddToCart />
+                </span>
+                Add to Cart
+              </button>
+            )}
+
             <button
               className="flex justify-center items-center gap-1 mt-3 bg-white/5  hover:bg-white/40 ring-2 backdrop-blur-md ring-white/50 text-white w-full  py-1 rounded shadow"
               onClick={onQuickView}

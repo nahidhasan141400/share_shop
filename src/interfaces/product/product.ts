@@ -1,5 +1,5 @@
 export interface ProductI {
-  id: number;
+  id: string;
   title: string;
   description: string;
   category: string;
@@ -43,4 +43,10 @@ export interface ProductResponseI {
   total: number;
   skip: number;
   limit: number;
+}
+
+export interface ProductCartI {
+  products: ProductI;
+  id: string;
+  quantity: number;
 }
