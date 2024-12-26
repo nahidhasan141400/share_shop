@@ -18,7 +18,6 @@ import { AddToFav, deleteProductFromFav } from "@/store/slices/favSlice";
 
 interface ProductCardProps {
   price: number;
-  brand: string;
   originalPrice?: number;
   discount: number | boolean | string;
   onAddToCart: () => void;
@@ -93,7 +92,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
       )}
 
       {/* Image */}
-      <div className="w-full h-52 overflow-hidden rounded-md relative">
+      <div className="w-full h-52  overflow-hidden rounded-md relative">
         {/* <img className="w-full h-52 object-cover rounded-md transition-transform duration-300 group-hover:scale-105 bg-white" /> */}
         <ImageWithLoading
           src={product?.thumbnail}

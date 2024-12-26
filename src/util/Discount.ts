@@ -4,7 +4,7 @@ interface PriceDetails {
   reducedAmount: number;
 }
 
-function roundToTwoDecimalPlaces(num: number): number {
+export function roundToTwoDecimalPlaces(num: number): number {
   return parseFloat(num.toFixed(2));
 }
 export function calculateDiscount(

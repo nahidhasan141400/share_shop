@@ -13,7 +13,7 @@ const ProductList = () => {
   const limit = 20;
   const [hoveredCardIndex, setHoveredCardIndex] = useState<number | null>(null);
 
-  const dispatch = useDispatch(); // Hook to dispatch Redux actions
+  const dispatch = useDispatch();
 
   // Use the usePagination hook to manage pagination state
   const { currentPage, skip, onPageChange } = usePagination({
@@ -67,7 +67,6 @@ const ProductList = () => {
               onMouseLeave={() => setHoveredCardIndex(null)}
             >
               <ProductCard
-                brand={product.brand}
                 discount={product.discountPercentage ? reducedAmount : false}
                 onAddToCart={() => handleAddToCart(product)} // Pass product to add to cart
                 onQuickView={() => console.log("Quick View:", product)}
