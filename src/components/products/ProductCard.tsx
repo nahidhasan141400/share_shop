@@ -83,7 +83,7 @@ const ProductCard: React.FC<ProductCardProps> = ({
       {/* Example: Image placeholder */}
     </div>
   ) : (
-    <div className="relative group max-w-[240px] rounded-lg hover:shadow-md bg-gray-50 p-1 overflow-hidden">
+    <div className="relative group max-w-[240px] rounded-lg hover:shadow-md pointer-events-none bg-gray-50 p-1 overflow-hidden">
       {/* Discount Badge */}
       {discount && (
         <div className="absolute top-2 -left-2 text-white text-xs px-2 py-1 z-10 rounded">
