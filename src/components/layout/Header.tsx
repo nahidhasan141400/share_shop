@@ -16,15 +16,15 @@ const Header = () => {
         <Link to={"/"}>
           <h1 className="text-xl cursor-pointer font-bold flex justify-start gap-2 items-center">
             <Logo />
-            Share Shop
+            <span className="hidden sm:inline-block">Share Shop</span>
           </h1>
         </Link>
         <nav>
-          <ul className="flex space-x-6">
+          <ul className="flex space-x-2 md:space-x-6">
             <li>
               <Link to={"/cart"}>
-                <button className="flex items-center justify-center gap-1 bg-blue-100 px-4 py-2 rounded-lg">
-                  <span className="text-2xl ">
+                <button className="flex items-center justify-center gap-1 text-sm md:text-base bg-blue-100 px-4 py-2 rounded-lg">
+                  <span className="text-xl md:text-2xl">
                     <ShoppingCart />
                   </span>
                   Cart
@@ -39,7 +39,7 @@ const Header = () => {
             {product_fav_length > 0 && (
               <li>
                 <button className="flex items-center justify-center gap-1 bg-blue-100 px-4 py-2 rounded-lg">
-                  <span className="text-2xl text-red-500">
+                  <span className="text-xl md:text-2xl text-red-500">
                     <Favorite />
                   </span>
                   Favorite
